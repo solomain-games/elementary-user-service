@@ -9,7 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * Настройки безопасности.
  * Пока открыты только эндпоинты проверки состояния, всё остальное требует аутентификации.
- * Проверка JWT появится в задаче Г2.
+ * Гостевой вход (П2) и публикация открытого ключа (П3) будут открыты здесь же.
  */
 @Configuration
 public class SecurityConfig {
@@ -20,7 +20,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info").permitAll()
                         .anyRequest().authenticated())
-                // Сервис не хранит сессии: каждый запрос будет нести свой токен (Г2)
+                // Сервис не хранит сессии: каждый запрос будет нести свой токен
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // CSRF защищает сессии на cookie; с токенами в заголовке он не нужен

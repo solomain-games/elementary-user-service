@@ -10,22 +10,9 @@
 	</parent>
 	<groupId>com.solomain.elementary</groupId>
 	<artifactId>user-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+	<version>0.1.0-SNAPSHOT</version>
+	<name>Elementary User Service</name>
+	<description>Пользователи, гостевой вход и выпуск JWT для игры Elementary</description>
 	<properties>
 		<java.version>25</java.version>
 	</properties>
