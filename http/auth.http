@@ -9,3 +9,6 @@ POST http://localhost:8082/api/auth/guest
 Content-Type: application/json
 
 { "name": "Анна!" }
+
+### Открытый ключ (JWKS)
+GET http://localhost:8082/.well-known/jwks.json

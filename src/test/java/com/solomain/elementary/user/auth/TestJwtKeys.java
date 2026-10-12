@@ -1,8 +1,10 @@
 package com.solomain.elementary.user.auth;
 
+import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.solomain.elementary.user.config.JwtConfig;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.converter.RsaKeyConverters;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -27,9 +29,17 @@ final class TestJwtKeys {
     private TestJwtKeys() {
     }
 
+    /** Ключ подписи, собранный так же, как в приложении ({@link JwtConfig#signingKey}). */
+    static RSAKey signingKey() {
+        try {
+            return JwtConfig.signingKey(PUBLIC_KEY, PRIVATE_KEY);
+        } catch (JOSEException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
     static JwtEncoder encoder() {
-        RSAKey key = new RSAKey.Builder(PUBLIC_KEY).privateKey(PRIVATE_KEY).build();
-        return new NimbusJwtEncoder(new ImmutableJWKSet<>(new JWKSet(key)));
+        return new NimbusJwtEncoder(new ImmutableJWKSet<>(new JWKSet(signingKey())));
     }
 
     /** Декодер, который проверяет подпись открытым ключом и срок действия токена. */

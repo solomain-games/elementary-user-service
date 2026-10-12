@@ -1,6 +1,9 @@
 package com.solomain.elementary.user.config;
 
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.KeyUse;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.solomain.elementary.user.auth.JwtProperties;
@@ -46,8 +49,19 @@ public class JwtConfig {
         try (InputStream in = privateKeyFile.getInputStream()) {
             privateKey = RsaKeyConverters.pkcs8().convert(in);
         }
+        return signingKey(publicKey, privateKey);
+    }
+
+    /**
+     * Собирает ключ подписи в формате JWK: {@code kid} — отпечаток открытого ключа,
+     * назначение — подпись ({@code use: sig}), алгоритм — RS256.
+     * Вынесено в отдельный метод, чтобы тесты собирали ключ точно так же, как приложение.
+     */
+    public static RSAKey signingKey(RSAPublicKey publicKey, RSAPrivateKey privateKey) throws JOSEException {
         return new RSAKey.Builder(publicKey)
                 .privateKey(privateKey)
+                .keyUse(KeyUse.SIGNATURE)
+                .algorithm(JWSAlgorithm.RS256)
                 .keyIDFromThumbprint()
                 .build();
     }

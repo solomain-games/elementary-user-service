@@ -22,6 +22,8 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info").permitAll()
                         // Вход открыт всем: токена у пользователя ещё нет
                         .requestMatchers(HttpMethod.POST, "/api/auth/guest").permitAll()
+                        // Открытый ключ публичен по определению: им только проверяют подпись
+                        .requestMatchers(HttpMethod.GET, "/.well-known/jwks.json").permitAll()
                         // Служебная страница ошибок Spring: иначе любая ошибка превращалась бы в 401
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated())
