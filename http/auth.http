@@ -1,0 +1,11 @@
+### Гостевой вход (запускается кнопкой ▶ в IntelliJ IDEA)
+POST http://localhost:8082/api/auth/guest
+Content-Type: application/json
+
+{ "name": "Анна" }
+
+### Ошибка проверки имени
+POST http://localhost:8082/api/auth/guest
+Content-Type: application/json
+
+{ "name": "Анна!" }

@@ -35,3 +35,6 @@ build/
 ### Local secrets ###
 .env
 *.env
+
+### JWT keys (never commit) ###
+secrets/

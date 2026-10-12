@@ -4,3 +4,9 @@ management:
   endpoint:
     health:
       show-details: always   # локально видно состояние каждого компонента
+
+# Ключи JWT для разработки: лежат в папке secrets/ (она в .gitignore). Как создать — README.
+elementary:
+  jwt:
+    private-key: file:./secrets/jwt-private.pem
+    public-key: file:./secrets/jwt-public.pem
