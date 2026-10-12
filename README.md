@@ -23,6 +23,7 @@ openssl rsa -in secrets/jwt-private.pem -pubout -out secrets/jwt-public.pem
 | Запрос | Описание |
 |---|---|
 | `POST /api/auth/guest` `{ "name": "Анна" }` | гостевой вход: JWT на 24 часа (см. `docs/protocol.md`, раздел 3) |
+| `GET /.well-known/jwks.json` | открытый ключ для проверки подписи токенов другими сервисами (JWKS) |
 
 Примеры запросов для IntelliJ IDEA — в `http/auth.http`.
 
