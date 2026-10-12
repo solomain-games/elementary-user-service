@@ -4,6 +4,28 @@
 
 Токены подписываются закрытым ключом по алгоритму RS256, открытый ключ публикуется для остальных сервисов (см. [ADR 0003](https://github.com/solomain-games/elementary-docs/blob/main/adr/0003-jwt-rs256-user-service.md)).
 
+## Ключи JWT
+
+Токены подписываются закрытым RSA-ключом (ADR 0003). Ключи хранятся **вне репозитория**: локально — в папке `secrets/` (она в `.gitignore`), на сервере — в файлах, пути к которым задают переменные `JWT_PRIVATE_KEY_LOCATION` и `JWT_PUBLIC_KEY_LOCATION`.
+
+Создать пару ключей для разработки (OpenSSL входит в Git для Windows — используй Git Bash или полный путь `"C:\Program Files\Git\usr\bin\openssl.exe"`):
+
+```bash
+mkdir -p secrets
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out secrets/jwt-private.pem
+openssl rsa -in secrets/jwt-private.pem -pubout -out secrets/jwt-public.pem
+```
+
+В тестах используются отдельные тестовые ключи из `src/test/resources/test-keys` (профиль `test`).
+
+## API
+
+| Запрос | Описание |
+|---|---|
+| `POST /api/auth/guest` `{ "name": "Анна" }` | гостевой вход: JWT на 24 часа (см. `docs/protocol.md`, раздел 3) |
+
+Примеры запросов для IntelliJ IDEA — в `http/auth.http`.
+
 ## Запуск локально
 
 Требуется JDK 25.

@@ -1,7 +1,12 @@
 # Профиль prod: боевой сервер. Значения приходят из переменных окружения, секретов в файле нет.
-# Здесь появится путь к закрытому ключу JWT (задача П2).
 
 management:
   endpoint:
     health:
       show-details: never   # наружу не раскрываем внутреннее устройство
+
+# Ключи JWT: файлы на сервере вне репозитория (задача И6)
+elementary:
+  jwt:
+    private-key: ${JWT_PRIVATE_KEY_LOCATION}
+    public-key: ${JWT_PUBLIC_KEY_LOCATION}

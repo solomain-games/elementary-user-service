@@ -1,0 +1,6 @@
+# Профиль test: тестовые ключи JWT лежат в src/test/resources/test-keys.
+# Это НЕ секрет: ключи созданы только для тестов и нигде больше не используются.
+elementary:
+  jwt:
+    private-key: classpath:test-keys/jwt-private.pem
+    public-key: classpath:test-keys/jwt-public.pem

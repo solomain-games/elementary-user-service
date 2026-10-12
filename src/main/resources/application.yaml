@@ -16,3 +16,8 @@ management:
     health:
       probes:
         enabled: true   # /actuator/health/liveness и /readiness — пригодятся для Docker и облака
+
+elementary:
+  jwt:
+    issuer: elementary-user-service
+    guest-token-ttl: 24h
